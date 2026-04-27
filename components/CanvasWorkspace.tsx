@@ -10,10 +10,10 @@ const MAX_HISTORY = 80;
 
 const SWATCHES = [
   "#000000","#111827","#1f2937","#374151","#4b5563","#6b7280",
-  "#9ca3af","#d1d5db","#f3f4f6","#ffffff",
+  "#9ca3af","#d1d5db","#f3f4f9","#ffffff",
   "#ef4444","#f97316","#f59e0b","#eab308","#84cc16","#22c55e",
   "#10b981","#14b8a6","#06b6d4","#0ea5e9","#3b82f6","#6366f1",
-  "#8b5cf6","#a855f7","#d946ef","#ec4899","#f43f5e","#fb7185",
+  "#8b5cf6","#a855f7","#d946ef","#ec4899","#f43f5f","#fb7185",
   "#fbbf24","#fb923c","#c084fc","#2dd4bf","#67e8f9","#7c3aed",
 ];
 
@@ -28,6 +28,27 @@ const CANVAS_PRESETS = [
 
 // ─── Tool Definitions ─────────────────────────────────────────────────────────
 type ToolDef = { id: string; label: string; key: string; icon: JSX.Element; group?: string };
+
+// ─── Icons defined as components ──────────────────────────────────────────────
+function PenIcon()       { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>; }
+function BrushFatIcon()  { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3zm13.71-9.37-1.34-1.34a1 1 0 0 0-1.41 0L9 12.25 11.75 15l9.96-9.96a1 1 0 0 0 0-1.41z"/></svg>; }
+function EraserIcon()    { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M20.71 4.63l-1.34-1.34a1 1 0 0 0-1.41 0L9 12.25 11.75 15l1.46-1.46 4.58 4.71H9v2h10l3.42-3.42a1 1 0 0 0 0-1.41zM9.75 9.75L3 16.5V21h4.5l6.75-6.75z"/></svg>; }
+function SprayIcon()     { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><circle cx="8" cy="12" r="1.2"/><circle cx="12" cy="8" r="0.9"/><circle cx="15" cy="11" r="1.2"/><circle cx="11" cy="15" r="0.9"/><circle cx="6" cy="8" r="0.9"/><circle cx="16" cy="7" r="0.9"/><path d="M5 20h14v-2H5z"/></svg>; }
+function BucketIcon()    { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M16.56 8.94L7.62 0 6.21 1.41l2.38 2.38-5.15 5.15a1.49 1.49 0 0 0 0 2.12l5.5 5.5c.29.29.68.44 1.06.44s.77-.15 1.06-.44l5.5-5.5c.59-.58.59-1.53 0-2.12zM5.21 10 10 5.21 14.79 10H5.21zM19 11.5s-2 2.17-2 3.5c0 1.1.9 2 2 2s2-.9 2-2c0-1.33-2-3.5-2-3.5z"/></svg>; }
+function LineIcon()      { return <svg width="15" height="15" viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/></svg>; }
+function RectIcon()      { return <svg width="15" height="15" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1" stroke="currentColor" strokeWidth="2" fill="none"/></svg>; }
+function CircleIcon()    { return <svg width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" fill="none"/></svg>; }
+function TriangleIcon()  { return <svg width="15" height="15" viewBox="0 0 24 24"><polygon points="12,3 22,20 2,20" stroke="currentColor" strokeWidth="2" fill="none"/></svg>; }
+function DiamondIcon()   { return <svg width="15" height="15" viewBox="0 0 24 24"><polygon points="12,2 22,12 12,22 2,12" stroke="currentColor" strokeWidth="2" fill="none"/></svg>; }
+function ArrowIcon()     { return <svg width="15" height="15" viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><polyline points="10,4 20,4 20,14" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" fill="none"/></svg>; }
+function StarIcon()      { return <svg width="15" height="15" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" stroke="currentColor" strokeWidth="2" fill="none"/></svg>; }
+function EyedropIcon()   { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M20.71 5.63l-2.34-2.34a1 1 0 0 0-1.41 0l-3.12 3.12-1.41-1.42-1.42 1.42 1.41 1.41L3 17.25V21h3.75l9.46-9.46 1.41 1.41 1.42-1.42-1.42-1.41 3.12-3.12a1 1 0 0 0 .01-1.42z"/></svg>; }
+function TextIcon()      { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M2 4v3h5v12h3V7h5V4H2zm19 5h-9v3h3v7h3v-7h3V9z"/></svg>; }
+function CropIcon()      { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M17 15h2V7c0-1.1-.9-2-2-2H9v2h8v8zM7 17V1H5v4H1v2h4v10c0 1.1.9 2 2 2h10v4h2v-4h4v-2H7z"/></svg>; }
+function UndoIcon()      { return <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/></svg>; }
+function RedoIcon()      { return <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 15.7C5 12.81 7.7 10.5 11 10.5c1.96 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z"/></svg>; }
+function GridIcon()      { return <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>; }
+function CopyIcon()      { return <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>; }
 
 const TOOLS: (ToolDef | null)[] = [
   { id:"pen",        label:"Pen",        key:"P", icon:<PenIcon />,        group:"draw" },
@@ -59,7 +80,7 @@ type CanvasSize = { w: number; h: number };
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function CanvasWorkspace() {
   const canvasRef    = useRef<HTMLCanvasElement | null>(null);
-  const overlayRef   = useRef<HTMLCanvasElement | null>(null); // preview layer
+  const overlayRef   = useRef<HTMLCanvasElement | null>(null);
   const wrapperRef   = useRef<HTMLDivElement | null>(null);
   const textInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -71,7 +92,6 @@ export default function CanvasWorkspace() {
   const histIdxRef   = useRef<number>(-1);
   const sprayTimer   = useRef<ReturnType<typeof setInterval> | null>(null);
   const toastTimer   = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const animRef      = useRef<ReturnType<typeof requestAnimationFrame> | null>(null);
 
   // ─── State ─────────────────────────────────────────────────────
   const [tool,         setTool]         = useState("pen");
@@ -99,9 +119,9 @@ export default function CanvasWorkspace() {
   const [mouseCoords,  setMouseCoords]  = useState<Vec2>({ x:0, y:0 });
   const [isPanning,    setIsPanning]    = useState(false);
   const [panStart,     setPanStart]     = useState<Vec2>({ x:0, y:0 });
-  const [showLeftPanel,   setShowLeftPanel]   = useState(true);
-  const [showRightPanel,  setShowRightPanel]  = useState(true);
-  const [activeRightTab,  setActiveRightTab]  = useState<"color"|"brush"|"canvas">("color");
+  const [showLeftPanel,   setShowLeftPanel]   useState(true);
+  const [showRightPanel,  setShowRightPanel]  useState(true);
+  const [activeRightTab,  setActiveRightTab]  useState<"color"|"brush"|"canvas">("color");
   const [isMobile,     setIsMobile]     = useState(false);
   const [isTablet,     setIsTablet]     = useState(false);
   const [showMobileTools, setShowMobileTools] = useState(false);
@@ -315,7 +335,7 @@ export default function CanvasWorkspace() {
     visited[py * W + px] = 1;
     while (queue.length) {
       const k = queue.pop()!;
-      const cx = k % W, cy = k / W | 0;
+      const cx = k % W, cy = Math.floor(k / W);
       if (cx<0||cx>=W||cy<0||cy>=H) continue;
       const i = k * 4;
       if (Math.abs(d[i]-tr)>tol||Math.abs(d[i+1]-tg)>tol||Math.abs(d[i+2]-tb)>tol||Math.abs(d[i+3]-ta)>tol) continue;
@@ -625,7 +645,6 @@ export default function CanvasWorkspace() {
   // ─── Canvas resize ────────────────────────────────────────────
   const applyCanvasPreset = useCallback((w: number, h: number) => {
     setCanvasSize({ w, h });
-    // Re-init will happen via effect
     showToast(`Canvas: ${w}×${h}`,"info");
     setShowPresets(false);
   }, [showToast]);
@@ -633,7 +652,7 @@ export default function CanvasWorkspace() {
   useEffect(() => {
     initCanvas(canvasSize.w, canvasSize.h);
     setTimeout(() => { fitToWindow(); pushHistory(); }, 80);
-  }, [canvasSize]); // eslint-disable-line
+  }, [canvasSize, initCanvas, fitToWindow, pushHistory]);
 
   // ─── Keyboard shortcuts ───────────────────────────────────────
   useEffect(() => {
@@ -649,9 +668,9 @@ export default function CanvasWorkspace() {
         return;
       }
       const map: Record<string,string> = {
-        p:"pen",b:"bucket",e:"eraser",l:"line",r:"rectangle",c:"circle",
+        p:"pen",b:"brush",e:"eraser",l:"line",r:"rectangle",c:"circle",
         t:"triangle",d:"diamond",a:"arrow",s:"spray",i:"eyedropper",x:"text",m:"crop",
-        v:"brush", // v for brush (b taken by bucket)
+        v:"brush",
       };
       if (map[k]) setTool(map[k]);
       if (k==="["||k===",") setBrushSize(s=>Math.max(1,s-2));
@@ -675,7 +694,7 @@ export default function CanvasWorkspace() {
   }, [onWheel]);
 
   useEffect(() => {
-    const ro = new ResizeObserver(fitToWindow);
+    const ro = new ResizeObserver(() => fitToWindow());
     if (wrapperRef.current) ro.observe(wrapperRef.current);
     return () => ro.disconnect();
   }, [fitToWindow]);
@@ -684,17 +703,53 @@ export default function CanvasWorkspace() {
   useEffect(() => {
     initCanvas();
     setTimeout(() => { fitToWindow(); pushHistory(); }, 100);
-  }, []); // eslint-disable-line
+  }, [initCanvas, fitToWindow, pushHistory]);
 
   // ─── Cursor size ──────────────────────────────────────────────
   const cursorSize = Math.max(4, brushSize * zoom * 2);
   const cursorLabel = tool !== "pen" && tool !== "brush" && tool !== "eraser" && tool !== "spray";
 
   // ─── Theme ───────────────────────────────────────────────────
+  const DARK = {
+    bg:"#080810", surface:"#0f0f1a", border:"#1a1a2e",
+    text:"#e2e8f0", muted:"#4b5563", icon:"#6b7280",
+    input:"#0d0d1a", chip:"#12121f", canvasBg:"#0a0a12",
+    gridDot:"#1e1e3020", statusBg:"rgba(8,8,16,0.9)",
+  };
+  const LIGHT = {
+    bg:"#f1f5f9", surface:"#ffffff", border:"#e2e8f0",
+    text:"#0f172a", muted:"#94a3b8", icon:"#64748b",
+    input:"#f8fafc", chip:"#f1f5f9", canvasBg:"#e2e8f0",
+    gridDot:"#94a3b830", statusBg:"rgba(241,245,249,0.9)",
+  };
   const T = darkMode ? DARK : LIGHT;
 
   // ─── Active tool label ────────────────────────────────────────
   const activeTool = TOOLS.find(t => t && t.id === tool) as ToolDef | undefined;
+
+  // ─── Grid Overlay Component ───────────────────────────────────
+  function GridOverlay({ W, H, gridSize }: { W:number; H:number; gridSize:number }) {
+    const gridRef = useRef<HTMLCanvasElement | null>(null);
+    useEffect(() => {
+      const cv = gridRef.current;
+      if (!cv) return;
+      const dpr = window.devicePixelRatio || 1;
+      cv.width = W * dpr; cv.height = H * dpr;
+      cv.style.width = W+"px"; cv.style.height = H+"px";
+      const ctx = cv.getContext("2d");
+      if (!ctx) return;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.strokeStyle = "rgba(255,255,255,0.05)";
+      ctx.lineWidth = 1;
+      for (let x=0;x<=W;x+=gridSize){ ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke(); }
+      for (let y=0;y<=H;y+=gridSize){ ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke(); }
+      ctx.strokeStyle = "rgba(255,255,255,0.1)";
+      const big = gridSize * 5;
+      for (let x=0;x<=W;x+=big){ ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke(); }
+      for (let y=0;y<=H;y+=big){ ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke(); }
+    }, [W, H, gridSize]);
+    return <canvas ref={gridRef} style={{ position:"absolute", top:0, left:0, pointerEvents:"none" }} />;
+  }
 
   // ─── Render ───────────────────────────────────────────────────
   return (
@@ -1175,21 +1230,6 @@ export default function CanvasWorkspace() {
   );
 }
 
-// ─── Theme Tokens ─────────────────────────────────────────────────────────────
-const DARK = {
-  bg:"#080810", surface:"#0f0f1a", border:"#1a1a2e",
-  text:"#e2e8f0", muted:"#4b5563", icon:"#6b7280",
-  input:"#0d0d1a", chip:"#12121f", canvasBg:"#0a0a12",
-  gridDot:"#1e1e3020", statusBg:"rgba(8,8,16,0.9)",
-};
-const LIGHT = {
-  bg:"#f1f5f9", surface:"#ffffff", border:"#e2e8f0",
-  text:"#0f172a", muted:"#94a3b8", icon:"#64748b",
-  input:"#f8fafc", chip:"#f1f5f9", canvasBg:"#e2e8f0",
-  gridDot:"#94a3b830", statusBg:"rgba(241,245,249,0.9)",
-};
-type Theme = typeof DARK;
-
 // ─── Shared Styles ────────────────────────────────────────────────────────────
 const S: Record<string, any> = {
   root: { display:"flex", flexDirection:"column", width:"100%", height:"100vh", overflow:"hidden", userSelect:"none" },
@@ -1254,47 +1294,4 @@ function StatusItem({ label, val, T }: { label:string; val:string; T:Theme }) {
   );
 }
 
-// ─── Grid Overlay ─────────────────────────────────────────────────────────────
-function GridOverlay({ W, H, gridSize }: { W:number; H:number; gridSize:number }) {
-  const ref = useRef<HTMLCanvasElement | null>(null);
-  useEffect(() => {
-    const cv = ref.current;
-    if (!cv) return;
-    const dpr = window.devicePixelRatio || 1;
-    cv.width = W * dpr; cv.height = H * dpr;
-    cv.style.width = W+"px"; cv.style.height = H+"px";
-    const ctx = cv.getContext("2d");
-    if (!ctx) return;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.strokeStyle = "rgba(255,255,255,0.05)";
-    ctx.lineWidth = 1;
-    for (let x=0;x<=W;x+=gridSize){ ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke(); }
-    for (let y=0;y<=H;y+=gridSize){ ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke(); }
-    ctx.strokeStyle = "rgba(255,255,255,0.1)";
-    const big = gridSize * 5;
-    for (let x=0;x<=W;x+=big){ ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke(); }
-    for (let y=0;y<=H;y+=big){ ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke(); }
-  }, [W, H, gridSize]);
-  return <canvas ref={ref} style={{ position:"absolute", top:0, left:0, pointerEvents:"none" }} />;
-}
-
-// ─── Icons ────────────────────────────────────────────────────────────────────
-function PenIcon()       { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>; }
-function BrushFatIcon()  { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3zm13.71-9.37-1.34-1.34a1 1 0 0 0-1.41 0L9 12.25 11.75 15l9.96-9.96a1 1 0 0 0 0-1.41z"/></svg>; }
-function EraserIcon()    { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M20.71 4.63l-1.34-1.34a1 1 0 0 0-1.41 0L9 12.25 11.75 15l1.46-1.46 4.58 4.71H9v2h10l3.42-3.42a1 1 0 0 0 0-1.41zM9.75 9.75L3 16.5V21h4.5l6.75-6.75z"/></svg>; }
-function SprayIcon()     { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><circle cx="8" cy="12" r="1.2"/><circle cx="12" cy="8" r="0.9"/><circle cx="15" cy="11" r="1.2"/><circle cx="11" cy="15" r="0.9"/><circle cx="6" cy="8" r="0.9"/><circle cx="16" cy="7" r="0.9"/><path d="M5 20h14v-2H5z"/></svg>; }
-function BucketIcon()    { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M16.56 8.94L7.62 0 6.21 1.41l2.38 2.38-5.15 5.15a1.49 1.49 0 0 0 0 2.12l5.5 5.5c.29.29.68.44 1.06.44s.77-.15 1.06-.44l5.5-5.5c.59-.58.59-1.53 0-2.12zM5.21 10 10 5.21 14.79 10H5.21zM19 11.5s-2 2.17-2 3.5c0 1.1.9 2 2 2s2-.9 2-2c0-1.33-2-3.5-2-3.5z"/></svg>; }
-function LineIcon()      { return <svg width="15" height="15" viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/></svg>; }
-function RectIcon()      { return <svg width="15" height="15" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1" stroke="currentColor" strokeWidth="2" fill="none"/></svg>; }
-function CircleIcon()    { return <svg width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" fill="none"/></svg>; }
-function TriangleIcon()  { return <svg width="15" height="15" viewBox="0 0 24 24"><polygon points="12,3 22,20 2,20" stroke="currentColor" strokeWidth="2" fill="none"/></svg>; }
-function DiamondIcon()   { return <svg width="15" height="15" viewBox="0 0 24 24"><polygon points="12,2 22,12 12,22 2,12" stroke="currentColor" strokeWidth="2" fill="none"/></svg>; }
-function ArrowIcon()     { return <svg width="15" height="15" viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><polyline points="10,4 20,4 20,14" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" fill="none"/></svg>; }
-function StarIcon()      { return <svg width="15" height="15" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" stroke="currentColor" strokeWidth="2" fill="none"/></svg>; }
-function EyedropIcon()   { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M20.71 5.63l-2.34-2.34a1 1 0 0 0-1.41 0l-3.12 3.12-1.41-1.42-1.42 1.42 1.41 1.41L3 17.25V21h3.75l9.46-9.46 1.41 1.41 1.42-1.42-1.42-1.41 3.12-3.12a1 1 0 0 0 .01-1.42z"/></svg>; }
-function TextIcon()      { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M2 4v3h5v12h3V7h5V4H2zm19 5h-9v3h3v7h3v-7h3V9z"/></svg>; }
-function CropIcon()      { return <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M17 15h2V7c0-1.1-.9-2-2-2H9v2h8v8zM7 17V1H5v4H1v2h4v10c0 1.1.9 2 2 2h10v4h2v-4h4v-2H7z"/></svg>; }
-function UndoIcon()      { return <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/></svg>; }
-function RedoIcon()      { return <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 15.7C5 12.81 7.7 10.5 11 10.5c1.96 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z"/></svg>; }
-function GridIcon()      { return <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>; }
-function CopyIcon()      { return <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>; }
+type Theme = { bg: string; surface: string; border: string; text: string; muted: string; icon: string; input: string; chip: string; canvasBg: string; gridDot: string; statusBg: string; };
